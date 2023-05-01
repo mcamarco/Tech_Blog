@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/mcamarco/Tech_Blog/issues"
   },
-  "homepage": "https://github.com/mcamarco/Tech_Blog#readme"
+  "homepage": "https://github.com/mcamarco/Tech_Blog#readme",
+  "dependencies": {
+    "dotenv": "^16.0.3"
+  }
 }
