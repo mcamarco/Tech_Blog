@@ -1,36 +1,50 @@
-const User = require('./models/User');
-const Post = require('./models/Post');
-const Comment = require('./models/Comment');
-
-User.hasMany(Post, {
-  foreignKey: 'userId',
-  onDelete: 'CASCADE'
+const Sequelize = require('sequelize');
+const sequelize = new Sequelize('database_name', 'username', 'password', {
+  host: 'localhost',
+  dialect: 'mysql'
 });
 
-User.hasMany(Comment, {
-  foreignKey: 'userId',
-  onDelete: 'CASCADE'
+const User = sequelize.define('user', {
+  // User model attributes go here
+});
+
+const Post = sequelize.define('post', {
+  // Post model attributes go here
+});
+
+const Comment = sequelize.define('comment', {
+  // Comment model attributes go here
+});
+
+// Create associations between models
+User.hasMany(Post, {
+  foreignKey: 'userId'
 });
 
 Post.belongsTo(User, {
-  foreignKey: 'userId',
-  onDelete: 'CASCADE'
+  foreignKey: 'userId'
 });
 
-Post.hasMany(Comment, {
-  foreignKey: 'postId',
-  onDelete: 'CASCADE'
+User.hasMany(Comment, {
+  foreignKey: 'userId'
 });
 
 Comment.belongsTo(User, {
-  foreignKey: 'userId',
+  foreignKey: 'userId'
+});
+
+Post.hasMany(Comment, {
+  foreignKey: 'postId'
 });
 
 Comment.belongsTo(Post, {
   foreignKey: 'postId'
 });
+
+// Export the database connection object and the models
 module.exports = {
+  sequelize,
   User,
-  Comment,
-  Post
+  Post,
+  Comment
 };
